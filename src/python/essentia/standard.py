@@ -42,6 +42,13 @@ def _create_essentia_class(name, moduleName = __name__):
 
             # configure the algorithm
             self.configure(**kwargs)
+            self._state = kwargs
+            
+        def __setstate__(self, state):
+            self.__init__(**state)
+
+        def __getstate__(self):
+            return self._state
 
         def configure(self, **kwargs):
             # verify that all types match and do any necessary conversions
